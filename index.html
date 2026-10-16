@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Confession For You ✨</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pyidaungsu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      /* Background အရောင်အသစ် (Romantic Twilight Theme) */
+      background: linear-gradient(-45deg, #1adee4, #6bd8d4, #3fc0abd7, #2fa9e6, #21967b);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .bg-shape {
+      position: absolute;
+      font-size: 24px;
+      user-select: none;
+      pointer-events: none;
+      animation: floatUp 8s linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(100vh) rotate(0deg) scale(0.8);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      background: transparent;
+      padding: 30px;
+      border-radius: 24px;
+      text-align: center;
+      max-width: 440px;
+      width: 90%;
+      z-index: 10;
+      transition: all 0.4s ease;
+      position: relative;
+    }
+
+    .step-badge {
+      display: inline-block;
+      padding: 5px 15px;
+      background: linear-gradient(45deg, #ff4757, #ff758c);
+      color: white;
+      font-weight: bold;
+      font-size: 13px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+      letter-spacing: 0.5px;
+    }
+
+    .gif-container img {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    /* Falling Bouquet Image Container & Styling (Bouquet ပုံအရွယ်အစားကို ပိုကြီးအောင် ချဲ့ထားသည်) */
+    .falling-gif-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+    }
+
+    .falling-gif {
+      width: 280px;
+      height: 280px;
+      object-fit: contain;
+      cursor: pointer;
+      animation: fallFromTop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));
+    }
+
+    @keyframes fallFromTop {
+      0% {
+        transform: translateY(-250px) scale(0.3);
+        opacity: 0;
+      }
+      70% {
+        transform: translateY(15px) scale(1.05);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* နောက်ဆုံး စာရွက် Design အသစ် (Romantic Love Letter Card) */
+    .confession-letter {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 240, 245, 0.95));
+      padding: 30px;
+      border-radius: 25px;
+      text-align: left;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 117, 140, 0.4);
+      border: 2px solid rgba(255, 117, 140, 0.6);
+      animation: popUpLetter 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      margin-top: 10px;
+      position: relative;
+    }
+
+    .confession-letter::before {
+      content: '💌';
+      position: absolute;
+      top: -15px;
+      right: 25px;
+      font-size: 30px;
+      background: white;
+      padding: 5px;
+      border-radius: 50%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    @keyframes popUpLetter {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    h1 {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 25px;
+      line-height: 1.5;
+      font-weight: 700;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+      min-height: 50px;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-group.swapped {
+      flex-direction: row-reverse;
+    }
+
+    button {
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .btn-yes {
+      background: linear-gradient(45deg, #ff4b2b, #ff416c);
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+    }
+    .btn-yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(255, 75, 43, 0.6);
+    }
+
+    .btn-no {
+      background: linear-gradient(45deg, #a8c0ff, #3f2b96);
+      color: white;
+      box-shadow: 0 4px 15px rgba(63, 43, 150, 0.3);
+      transition: all 0.2s ease-out;
+      z-index: 9999;
+    }
+
+    .btn-yes-step2 {
+      background: linear-gradient(45deg, #11998e, #38ef7d);
+      color: white;
+      box-shadow: 0 4px 15px rgba(56, 239, 125, 0.4);
+      transition: transform 0.2s;
+    }
+    .btn-yes-step2:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-no-step2 {
+      background: linear-gradient(45deg, #ff9966, #ff5e62);
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 94, 98, 0.4);
+    }
+
+    .btn-yes-step3 {
+      background: linear-gradient(45deg, #ff007f, #7928ca);
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+    }
+    .btn-yes-step3:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-aung-step3 {
+      background: linear-gradient(45deg, #f857a6, #ff5858);
+      color: white;
+      box-shadow: 0 4px 15px rgba(248, 87, 166, 0.4);
+    }
+    .btn-aung-step3:hover {
+      transform: scale(1.08);
+    }
+
+    .btn-card {
+      background: linear-gradient(45deg, #2b5876, #4e4376);
+      color: white;
+      margin-top: 15px;
+      box-shadow: 0 4px 15px rgba(43, 88, 118, 0.4);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .warning-popup {
+      position: fixed;
+      padding: 10px 18px;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+      pointer-events: none;
+      animation: popup 1.5s ease-out forwards;
+      z-index: 10000;
+      white-space: nowrap;
+    }
+
+    .warning-theme-1 {
+      background: linear-gradient(45deg, #ff3366, #ff0055);
+    }
+
+    .warning-theme-2 {
+      background: linear-gradient(45deg, #7928ca, #ff0080);
+    }
+
+    @keyframes popup {
+      0% { opacity: 0; transform: translateY(0) scale(0.8); }
+      20% { opacity: 1; transform: translateY(-5px) scale(1.05); }
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-25px) scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background Music (လုံးဝ Logo/Controls မပါဘဲ နောက်ကွယ်မှ အလိုအလျောက် ပွင့်မည့် Audio)[cite: 2] -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.image2url.com/r2/default/audio/1789288232634-9a89e91e-e43f-4d68-b101-bf9b607f0f76.m4a" type="audio/ogg">
+  </audio>
+
+  <div id="bgParticles"></div>
+
+  <div class="container" id="mainContainer"></div>
+
+  <script>
+    // ဖိုင်ထဲဝင်ဝင်ချင်း သီချင်းအလိုအလျောက်ဖွင့်ရန်[cite: 2]
+    document.addEventListener('DOMContentLoaded', () => {
+      const music = document.getElementById('bgMusic');
+      music.volume = 0.6;
+      
+      const playMusic = () => {
+        music.play().catch(() => {});
+        document.removeEventListener('click', playMusic);
+        document.removeEventListener('touchstart', playMusic);
+      };
+
+      document.addEventListener('click', playMusic);
+      document.addEventListener('touchstart', playMusic);
+      
+      music.play().catch(() => {});
+    });
+
+    function createBgParticles() {
+      const container = document.getElementById('bgParticles');
+      const symbols = ['❤️', '💖', '✨', '🌸', '💕', '⭐', '🎈'];
+      for (let i = 0; i < 15; i++) {
+        const span = document.createElement('span');
+        span.className = 'bg-shape';
+        span.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDuration = (5 + Math.random() * 6) + 's';
+        span.style.animationDelay = (Math.random() * 5) + 's';
+        span.style.fontSize = (16 + Math.random() * 20) + 'px';
+        container.appendChild(span);
+      }
+    }
+    createBgParticles();
+
+    const warningsStep1 = [
+      "Try Againnnn 🥺",
+      "Don'ttt 💔",
+      "Stopppp!!",
+      "Pleaseeee.. 🙈"
+    ];
+
+    const warningsStep2 = [
+      "Sure?",
+      "Please Say Yess 🤪",
+      "Don't Click Noooo",
+      "Accept me Please... 🥰",
+    ];
+
+    let currentStep = 1;
+    let warningIndexStep1 = 0;
+    let warningIndexStep2 = 0;
+    let yesScaleStep1 = 1;
+    let isSwappedStep2 = false;
+    let isLockStep2 = false;
+
+    let step1NoClicks = 0;
+
+    renderStep();
+
+    function renderStep() {
+      const container = document.getElementById('mainContainer');
+
+      if (currentStep === 1) {
+        container.innerHTML = `
+          <div class="step-badge">Hello Dear My Crush</div>
+          <div class="gif-container">
+            <img id="gifImage" src="https://media.tenor.com/wIev1fUt-M8AAAAi/peach-goma-peach-and-goma.gif" alt="Cute Shy Gif">
+          </div>
+          <h1 id="questionText">ချစ်ခွင့်လေးပေးပါတော့လားကွာ</h1>
+          <div class="btn-group">
+            <button class="btn-yes" id="yesBtn1" onclick="finishStep1()">YES ❤️</button>
+            <button class="btn-no" id="noBtn1" onclick="handleNoStep1()">NO 🙈</button>
+          </div>
+        `;
+      } else if (currentStep === 2) {
+        container.innerHTML = `
+          <div class="step-badge" style="background: linear-gradient(45deg, #11998e, #38ef7d);">Hello Dear My Crush</div>
+          <div class="gif-container">
+            <img id="gifImage" src="https://media.tenor.com/ppJGvOm48zIAAAAi/peach-and-goma-peach-goma.gif" alt="Teasing Cute Gif">
+          </div>
+          <h1 id="questionText">Yes နှိပ်တယ်ဆိုတော့ လက်ခံတယ်ပေါ့</h1>
+          <div class="btn-group ${isSwappedStep2 ? 'swapped' : ''}" id="btnGroup2">
+            <button class="btn-yes-step2" id="yesBtn2" onclick="finishStep2('YES 🥰')">YES 🥰</button>
+            <button class="btn-no-step2" id="noBtn2" onclick="handleNoStep2()">NO 😜</button>
+          </div>
+        `;
+      } else if (currentStep === 3) {
+        container.innerHTML = `
+          <div class="step-badge" style="background: linear-gradient(45deg, #ff007f, #7928ca);">Hello Dear My Crush</div>
+          <div class="gif-container">
+            <img id="gifImage" src="https://media.tenor.com/v63_brUy45wAAAAi/peach-goma-love-peach-cat.gif" alt="Super Cute Gif">
+          </div>
+          <h1 id="questionText">ဒီနေ့ကစပြီး ကိုယ့်ရဲ့ ချစ်သူလေး ဖြစ်ပြီနော်... ❤️</h1>
+          <div class="btn-group">
+            <button class="btn-yes-step3" onclick="finishStep3('YES 💖')">YES 💖</button>
+            <button class="btn-aung-step3" onclick="finishStep3('HOK 🌸')">HOK 🌸</button>
+          </div>
+        `;
+      }
+    }
+
+    function sendToFormspree(data) {
+      fetch("", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(data)
+      }).catch(error => console.log(error));
+    }
+
+    function finishStep1() {
+      const floatingNo = document.getElementById('noBtn1');
+      if (floatingNo) floatingNo.remove();
+
+      sendToFormspree({
+        "အဆင့် (၁) ရွေးချယ်မှု": `YES နှိပ်ခဲ့သည် (NO ကို ${step1NoClicks} ကြိမ်တိုင်တိုင် နှိပ်ခဲ့ပါသည်)`,
+        "ပို့သည့်အချိန်": new Date().toLocaleString()
+      });
+
+      currentStep = 2;
+      renderStep();
+    }
+
+    function finishStep2(choice) {
+      sendToFormspree({
+        "အဆင့် (၂) ရွေးချယ်မှု": choice,
+        "ပို့သည့်အချိန်": new Date().toLocaleString()
+      });
+
+      currentStep = 3;
+      renderStep();
+    }
+
+    function finishStep3(choiceText) {
+      sendToFormspree({
+        "အဆင့် (၃) ရွေးချယ်မှု": choiceText,
+        "ပို့သည့်အချိန်": new Date().toLocaleString()
+      });
+
+      handleYesFinal(choiceText);
+    }
+
+    function handleNoStep1() {
+      step1NoClicks++;
+
+      const noBtn = document.getElementById('noBtn1');
+      const yesBtn = document.getElementById('yesBtn1');
+
+      if (!noBtn || !yesBtn) return;
+
+      if (noBtn.parentElement !== document.body) {
+        document.body.appendChild(noBtn);
+      }
+
+      const btnWidth = noBtn.offsetWidth || 100;
+      const btnHeight = noBtn.offsetHeight || 45;
+
+      const minX = 20;
+      const maxX = Math.max(minX, window.innerWidth - btnWidth - 20);
+
+      const minY = 70;
+      const maxY = Math.max(minY, window.innerHeight - btnHeight - 30);
+
+      const randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+      const randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+      noBtn.style.zIndex = '9999';
+
+      yesScaleStep1 += 0.15;
+      yesBtn.style.transform = `scale(${yesScaleStep1})`;
+
+      const warningY = randomY - 45;
+      showWarning(randomX, warningY, warningsStep1[warningIndexStep1 % warningsStep1.length], 'warning-theme-1');
+      warningIndexStep1++;
+    }
+
+    function handleNoStep2() {
+      if (isLockStep2) return;
+      isLockStep2 = true;
+
+      const btnGroup = document.getElementById('btnGroup2');
+      const noBtn = document.getElementById('noBtn2');
+      
+      isSwappedStep2 = !isSwappedStep2;
+      if (btnGroup) {
+        if (isSwappedStep2) {
+          btnGroup.classList.add('swapped');
+        } else {
+          btnGroup.classList.remove('swapped');
+        }
+      }
+
+      if (noBtn) {
+        const rect = noBtn.getBoundingClientRect();
+        showWarning(rect.left + (rect.width/2) - 40, rect.top - 45, warningsStep2[warningIndexStep2 % warningsStep2.length], 'warning-theme-2');
+        warningIndexStep2++;
+      }
+
+      setTimeout(() => {
+        isLockStep2 = false;
+      }, 300);
+    }
+
+    function showWarning(x, y, text, themeClass) {
+      const warning = document.createElement('div');
+      warning.className = `warning-popup ${themeClass}`;
+      warning.innerText = text;
+
+      const safeX = Math.min(window.innerWidth - 200, Math.max(10, x));
+      const safeY = Math.max(10, y);
+
+      warning.style.left = `${safeX}px`;
+      warning.style.top = `${safeY}px`;
+
+      document.body.appendChild(warning);
+
+      setTimeout(() => {
+        warning.remove();
+      }, 1500);
+    }
+
+    function handleYesFinal(choiceText = 'YES') {
+      const container = document.getElementById('mainContainer');
+      
+      container.innerHTML = `
+        <div class="gif-container">
+          <img src="https://media.tenor.com/PzZCjLnRkUsAAAAi/peach-and-goma-hug.gif" alt="Happy Gif">
+        </div>
+        <h1>Yay! '${choiceText}' လို့ ဖြေပေးလို့ အရမ်းပျော်တာပဲ! ❤️✨</h1>
+        <button class="btn-card" onclick="startFallingGifPage()">E-postcard For You ✉️</button>
+      `;
+    }
+
+    function startFallingGifPage() {
+      const container = document.getElementById('mainContainer');
+      
+      container.innerHTML = `
+        <h1 style="margin-bottom: 5px; color: #ff758c; font-size: 18px;">💌 Special Confession For You</h1>
+        <p style="font-size: 12px; color: #ddd; margin-bottom: 15px; font-style: italic;">အောက်သို့ ဝဲကျလာသော Bouquet ပုံကြီးကို ထိပါ ✨</p>
+        <div class="falling-gif-container">
+          <img class="falling-gif" src="https://i.ibb.co/wFdWQPkx/Bouquet-3.png" alt="Falling Bouquet" onclick="showConfessionLetter()">
+        </div>
+      `;
+    }
+
+    function showConfessionLetter() {
+      const container = document.getElementById('mainContainer');
+      
+      container.innerHTML = `
+        <div class="confession-letter">
+          <h1 style="margin-bottom: 12px; color: #ff4757; font-size: 18px; text-align: center;">✨ ကိုယ့်ရဲ့ Crush လေးဆီက ရင်ဖွင့်စကား ✨</h1>
+          <p style="font-size: 13.5px; color: #444; line-height: 1.8; text-align: center;">
+            ချစ်ရတဲ့ ကိုယ့်ရဲ့ Crush လေးရေ... 💌<br><br>
+            ဒီစာလေးကို ဖတ်နေတဲ့အချိန်မှာ ကိုယ့်ရင်ထဲက စကားတွေကို မင်းသိစေချင်လို့ပါ။ မင်းကို မြင်တဲ့ ပထမဆုံးရက်ကစပြီး ကိုယ့်ရင်ခုန်သံတွေက မင်းဆီမှာပဲ ရှိနေခဲ့တာပါ။ တစ်နေ့ထက်တစ်နေ့ မင်းကို ပိုပိုပြီး ချစ်ခင်တွယ်တာလာမိတယ်။<br><br>
+            ကိုယ့်ရဲ့ ဘဝလေးထဲကို အလင်းရောင်နဲ့ ပျော်ရွှင်မှုတွေ ယူဆောင်လာပေးတဲ့အတွက် ကျေးဇူးအများကြီးတင်ပါတယ်နော်... အမြဲတမ်း အနားမှာ ရှိနေပေးမယ်နော်... ❤️✨
+          </p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
